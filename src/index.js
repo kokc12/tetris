@@ -11,6 +11,7 @@ let initialY = 16;
 let arrOfGridItems = null;
 let getCurrentTetamino = null;
 let tetraminoItems = [];
+let animationSpeed = 500;
 let arrOfTetraminos = [
     [
         [0, 1],
@@ -95,8 +96,51 @@ function getRandomTetramino() {
     return Math.round(Math.random() * arrOfTetraminos.length - 1);
 }
 
+function animate() {
+    let isMove = true;
+    let newCoordinates = [
+        [tetraminoItems[0].attr('pos-x'), tetraminoItems[0].attr('pos-y')],
+        [tetraminoItems[1].attr('pos-x'), tetraminoItems[1].attr('pos-y')],
+        [tetraminoItems[2].attr('pos-x'), tetraminoItems[2].attr('pos-y')],
+        [tetraminoItems[3].attr('pos-x'), tetraminoItems[3].attr('pos-y')],
+    ];
+    
+    for(let i = 0; i < newCoordinates.length; i++) {
+        if(newCoordinates[i][1] == 1 || $(`[pos-x = '${newCoordinates[i][0]}'][pos-y = '${newCoordinates[i][1] - 1}']`).hasClass('set')) {
+            isMove = false;
+            break;
+        }
+    }
+
+    if(isMove) {
+        for(let i = 0; i < tetraminoItems.length; i++) {
+            tetraminoItems[i].removeClass('tetramino-block');
+        }
+
+        tetraminoItems = [
+            $(`[pos-x = '${newCoordinates[0][0]}'][pos-y = '${newCoordinates[0][1] - 1}']`),
+            $(`[pos-x = '${newCoordinates[1][0]}'][pos-y = '${newCoordinates[1][1] - 1}']`),
+            $(`[pos-x = '${newCoordinates[2][0]}'][pos-y = '${newCoordinates[2][1] - 1}']`),
+            $(`[pos-x = '${newCoordinates[3][0]}'][pos-y = '${newCoordinates[3][1] - 1}']`),
+        ];
+
+        for(let i = 0; i < tetraminoItems.length; i++) {
+            tetraminoItems[i].addClass('tetramino-block');
+        }
+
+    } else {
+        for(let i = 0; i < tetraminoItems.length; i++) {
+            tetraminoItems[i].removeClass('tetramino-block');
+            tetraminoItems[i].addClass('set');
+        }
+        createTetramino();
+    }
+}
+
 $(document).ready(function() {
-    fillPlayfield(); //Fill the playfield with grid items
-    setCoordinatesForGridItems(); //Set pos-x and pos-y attribute for every grid item
-    createTetramino();
+    fillPlayfield(); //Fill the playfield with grid items.
+    setCoordinatesForGridItems(); //Set pos-x and pos-y attribute for every grid item.
+    createTetramino(); //Draw and set coordinates for tetramino.
+    setInterval(animate, animationSpeed); //Make it move.
+    
 });

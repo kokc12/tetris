@@ -67,6 +67,6 @@ body {
     border: 1px solid var(--grid-item);
 }
 
-.tetramino-block {
+.tetramino-block, .set {
     background-color: var(--tetramino-block);
 }
