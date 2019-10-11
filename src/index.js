@@ -8,6 +8,7 @@ import "../dist/assets/style.css";
 let index = 0;
 let initialX = 5;
 let initialY = 16;
+let rotation = 1;
 let arrOfGridItems = null;
 let getCurrentTetramino = null;
 let tetraminoItems = [];
@@ -18,36 +19,213 @@ let arrOfTetraminos = [
         [0, 1],
         [0, 2],
         [0, 3],
+
+        [
+            [-1, 1],
+            [0, 0],
+            [1, -1],
+            [2, -2],
+        ],
+        [
+            [1, -1],
+            [0, 0],
+            [-1, 1],
+            [-2, 2],
+        ],
+        [
+            [-1, 1],
+            [0, 0],
+            [1, -1],
+            [2, -2],
+        ],
+        [
+            [1, -1],
+            [0, 0],
+            [-1, 1],
+            [-2, 2],
+        ]
     ],
+
     [
         [1, 0],
         [0, 1],
         [1, 1],
+
+        [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ],
+        [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ],
+        [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ],
+        [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ],
     ],
+
     [
         [1, 0],
         [0, 1],
         [0, 2],
+
+        [
+            [0, 0],
+            [-1, 1],
+            [1, 0],
+            [2, -1],
+        ],
+        [
+            [1, -1],
+            [1, -1],
+            [-1, 0],
+            [-1, 0],
+        ],
+        [
+            [-1, 0],
+            [0, -1],
+            [2, -2],
+            [1, -1],
+        ],
+        [
+            [0, -1],
+            [0, -1],
+            [-2, 0],
+            [-2, 0],
+        ],
     ],
     [
         [1, 0],
         [1, 1],
         [1, 2],
+
+        [
+            [0, 0],
+            [0, 0],
+            [1, -1],
+            [-1, -1],
+        ],
+        [
+            [0, -1],
+            [-1, 0],
+            [-2, 1],
+            [1, 0],
+        ],
+        [
+            [2, 0],
+            [0, 0],
+            [1, -1],
+            [1, -1],
+        ],
+        [
+            [-2, 0],
+            [1, -1],
+            [0, 0],
+            [-1, 1],
+        ],
     ],
     [
         [1, 0],
         [-1, 1],
         [0, 1],
+
+        [
+            [0, -1],
+            [-1, 0],
+            [2, -1],
+            [1, 0],
+        ],
+        [
+            [0, 0],
+            [1, -1],
+            [-2, 0],
+            [-1, -1],
+        ],
+        [
+            [0, -1],
+            [-1, 0],
+            [2, -1],
+            [1, 0],
+        ],
+        [
+            [0, 0],
+            [1, -1],
+            [-2, 0],
+            [-1, -1],
+        ],
     ],
     [
         [1, 0],
         [1, 1],
         [2, 1],
+
+        [
+            [2, -1],
+            [0, 0],
+            [1, -1],
+            [-1, 0],
+        ],
+        [
+            [-2, 0],
+            [0, -1],
+            [-1, 0],
+            [1, -1],
+        ],
+        [
+            [2, -1],
+            [0, 0],
+            [1, -1],
+            [-1, 0],
+        ],
+        [
+            [-2, 0],
+            [0, -1],
+            [-1, 0],
+            [1, -1],
+        ],
     ],
     [
         [1, 0],
         [2, 0],
         [1, 1],
+
+        [
+            [1, -1],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ],
+        [
+            [0, 0],
+            [-1, 0],
+            [-1, 0],
+            [1, -1],
+        ],
+        [
+            [1, -1],
+            [1, -1],
+            [1, -1],
+            [0, 0],
+        ],
+        [
+            [-2, 0],
+            [0, -1],
+            [0, -1],
+            [-1, -1],
+        ],
     ],
 
 ]
@@ -81,6 +259,8 @@ function setCoordinatesForGridItems() {
 function createTetramino() {
     getCurrentTetramino = getRandomTetramino();
     
+    rotation = 1;
+
     tetraminoItems = [
         $(`[pos-x = '${initialX}'][pos-y = '${initialY}']`),
         $(`[pos-x = '${initialX + arrOfTetraminos[getCurrentTetramino][0][0]}'][pos-y = '${initialY + arrOfTetraminos[getCurrentTetramino][0][1]}']`),
@@ -182,6 +362,44 @@ $(window).on('keydown', function(e) {
         drawNewXPosition(-1)
     } else if(e.keyCode == 39) {
         drawNewXPosition(1);
+    } else if(e.keyCode == 38) {
+        isStop = true;
+    
+        let newCoordinates = [
+            $(`[pos-x = '${parseInt(coordinates1[0]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][0][0]}'][pos-y = '${parseInt(coordinates1[1]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][0][1]}']`),
+
+            $(`[pos-x = '${parseInt(coordinates2[0]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][1][0]}'][pos-y = '${parseInt(coordinates2[1]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][1][1]}']`),
+
+            $(`[pos-x = '${parseInt(coordinates3[0]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][2][0]}'][pos-y = '${parseInt(coordinates3[1]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][2][1]}']`),
+
+            $(`[pos-x = '${parseInt(coordinates4[0]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][3][0]}'][pos-y = '${parseInt(coordinates4[1]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][3][1]}']`),
+        ];
+    
+        for(let i = 0; i < newCoordinates.length; i++) {
+            if(!newCoordinates[0].attr('pos-x') == 1 ||
+            !newCoordinates[1].attr('pos-x') == 1 ||
+            !newCoordinates[2].attr('pos-x') == 1 || newCoordinates[i].hasClass('set')) {
+                isStop = false;
+            }
+        }
+    
+        if(isStop === true) {
+            for(let i = 0; i < tetraminoItems.length; i++) {
+                tetraminoItems[i].removeClass('tetramino-block');
+            }
+    
+            tetraminoItems = newCoordinates;
+    
+            for(let i = 0; i < tetraminoItems.length; i++) {
+                tetraminoItems[i].addClass('tetramino-block');
+            }
+
+            if(rotation < 4) {
+                rotation++;
+            } else {
+                rotation = 1;
+            }
+        }
     } else if(e.keyCode == 40) {
         animate();
     }
