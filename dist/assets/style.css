@@ -3,9 +3,13 @@
     --main-bg: #e0f2f1;
     --grid-item: #b2dfdb;
     --tetramino-block: #004d40;
+    --points: #004d40;
 }
 /* End of Variables ===============================> */
 
+h1, h2, h3 {
+    margin: 15px 0px;
+}
 
 * {
     margin: 0;
@@ -17,6 +21,7 @@ html,
 body {
     width: 100%;
     height: 100vh;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 
@@ -48,17 +53,26 @@ body {
     margin-right: 50px;
 }
 
-#next-tetramino {
+#controlls {
     width: 200px;
     height: 200px;
     margin-bottom: 50px;
-    background-color: var(--main-bg);
+    padding: 15px;
+    font-size: 18px;
+}
+
+#controlls p {
+    text-align: left;
 }
 
 #points {
     width: 200px;
     height: 200px;
+    padding: 15px;
     background-color: var(--main-bg);
+    font-size: 60px;
+    color: var(--points);
+    
 }
 
 .grid-item {

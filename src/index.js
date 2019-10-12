@@ -15,8 +15,15 @@ let getCurrentTetramino = null;
 let tetraminoItems = [];
 let animationSpeed = 500;
 let isStop = true;
+let score = 0;
 //End of Global Variebles ===============================>
 
+$.fn.pointsCounter = function() {
+    $(this).html(`${score}`);
+    return this;
+}
+
+$('#points').pointsCounter();
 
 function createItem(tag, className) {
     return $(tag).addClass(className);
@@ -108,6 +115,8 @@ function animate() {
                 if($(`[pos-x = '${k}'][pos-y = '${i}']`).hasClass('set')) {
                     count++;
                     if(count == 10) {
+                        score += 10;
+                        $('#points').pointsCounter();
                         for(let j = 1; j < 11; j++) {
                             $(`[pos-x = '${j}'][pos-y = '${i}']`).removeClass('set');
                         }
@@ -136,7 +145,7 @@ function animate() {
         for(let g = 1; g < 11; g++) {
             if($(`[pos-x = '${g}'][pos-y = '15']`).hasClass('set')) {
                 clearInterval(interval);
-                alert('The game is over');
+                alert(`The game is over \n Your score is: ${score}`);
                 break;
             }
         }
@@ -231,6 +240,8 @@ $(window).on('keydown', function(e) {
         animate();
     }
 });
+
+
 
 $(document).ready(function() {
     fillPlayfield(); //Fill the playfield with grid items.
