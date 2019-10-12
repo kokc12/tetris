@@ -1,6 +1,7 @@
 //Imports ===============================>
 import $ from "jquery";
 import "../dist/assets/style.css";
+import TetraminosShape from "./components/TetraminosShape";
 //End of Imports ===============================>
 
 
@@ -14,221 +15,6 @@ let getCurrentTetramino = null;
 let tetraminoItems = [];
 let animationSpeed = 500;
 let isStop = true;
-let arrOfTetraminos = [
-    [
-        [0, 1],
-        [0, 2],
-        [0, 3],
-
-        [
-            [-1, 1],
-            [0, 0],
-            [1, -1],
-            [2, -2],
-        ],
-        [
-            [1, -1],
-            [0, 0],
-            [-1, 1],
-            [-2, 2],
-        ],
-        [
-            [-1, 1],
-            [0, 0],
-            [1, -1],
-            [2, -2],
-        ],
-        [
-            [1, -1],
-            [0, 0],
-            [-1, 1],
-            [-2, 2],
-        ]
-    ],
-
-    [
-        [1, 0],
-        [0, 1],
-        [1, 1],
-
-        [
-            [0, 0],
-            [0, 0],
-            [0, 0],
-            [0, 0],
-        ],
-        [
-            [0, 0],
-            [0, 0],
-            [0, 0],
-            [0, 0],
-        ],
-        [
-            [0, 0],
-            [0, 0],
-            [0, 0],
-            [0, 0],
-        ],
-        [
-            [0, 0],
-            [0, 0],
-            [0, 0],
-            [0, 0],
-        ],
-    ],
-
-    [
-        [1, 0],
-        [0, 1],
-        [0, 2],
-
-        [
-            [0, 0],
-            [-1, 1],
-            [1, 0],
-            [2, -1],
-        ],
-        [
-            [1, -1],
-            [1, -1],
-            [-1, 0],
-            [-1, 0],
-        ],
-        [
-            [-1, 0],
-            [0, -1],
-            [2, -2],
-            [1, -1],
-        ],
-        [
-            [0, -1],
-            [0, -1],
-            [-2, 0],
-            [-2, 0],
-        ],
-    ],
-    [
-        [1, 0],
-        [1, 1],
-        [1, 2],
-
-        [
-            [0, 0],
-            [0, 0],
-            [1, -1],
-            [-1, -1],
-        ],
-        [
-            [0, -1],
-            [-1, 0],
-            [-2, 1],
-            [1, 0],
-        ],
-        [
-            [2, 0],
-            [0, 0],
-            [1, -1],
-            [1, -1],
-        ],
-        [
-            [-2, 0],
-            [1, -1],
-            [0, 0],
-            [-1, 1],
-        ],
-    ],
-    [
-        [1, 0],
-        [-1, 1],
-        [0, 1],
-
-        [
-            [0, -1],
-            [-1, 0],
-            [2, -1],
-            [1, 0],
-        ],
-        [
-            [0, 0],
-            [1, -1],
-            [-2, 0],
-            [-1, -1],
-        ],
-        [
-            [0, -1],
-            [-1, 0],
-            [2, -1],
-            [1, 0],
-        ],
-        [
-            [0, 0],
-            [1, -1],
-            [-2, 0],
-            [-1, -1],
-        ],
-    ],
-    [
-        [1, 0],
-        [1, 1],
-        [2, 1],
-
-        [
-            [2, -1],
-            [0, 0],
-            [1, -1],
-            [-1, 0],
-        ],
-        [
-            [-2, 0],
-            [0, -1],
-            [-1, 0],
-            [1, -1],
-        ],
-        [
-            [2, -1],
-            [0, 0],
-            [1, -1],
-            [-1, 0],
-        ],
-        [
-            [-2, 0],
-            [0, -1],
-            [-1, 0],
-            [1, -1],
-        ],
-    ],
-    [
-        [1, 0],
-        [2, 0],
-        [1, 1],
-
-        [
-            [1, -1],
-            [0, 0],
-            [0, 0],
-            [0, 0],
-        ],
-        [
-            [0, 0],
-            [-1, 0],
-            [-1, 0],
-            [1, -1],
-        ],
-        [
-            [1, -1],
-            [1, -1],
-            [1, -1],
-            [0, 0],
-        ],
-        [
-            [-2, 0],
-            [0, -1],
-            [0, -1],
-            [-1, -1],
-        ],
-    ],
-
-]
 //End of Global Variebles ===============================>
 
 
@@ -263,9 +49,9 @@ function createTetramino() {
 
     tetraminoItems = [
         $(`[pos-x = '${initialX}'][pos-y = '${initialY}']`),
-        $(`[pos-x = '${initialX + arrOfTetraminos[getCurrentTetramino][0][0]}'][pos-y = '${initialY + arrOfTetraminos[getCurrentTetramino][0][1]}']`),
-        $(`[pos-x = '${initialX + arrOfTetraminos[getCurrentTetramino][1][0]}'][pos-y = '${initialY + arrOfTetraminos[getCurrentTetramino][1][1]}']`),
-        $(`[pos-x = '${initialX + arrOfTetraminos[getCurrentTetramino][2][0]}'][pos-y = '${initialY + arrOfTetraminos[getCurrentTetramino][2][1]}']`),
+        $(`[pos-x = '${initialX + TetraminosShape[getCurrentTetramino][0][0]}'][pos-y = '${initialY + TetraminosShape[getCurrentTetramino][0][1]}']`),
+        $(`[pos-x = '${initialX + TetraminosShape[getCurrentTetramino][1][0]}'][pos-y = '${initialY + TetraminosShape[getCurrentTetramino][1][1]}']`),
+        $(`[pos-x = '${initialX + TetraminosShape[getCurrentTetramino][2][0]}'][pos-y = '${initialY + TetraminosShape[getCurrentTetramino][2][1]}']`),
     ]
 
     for(let i = 0; i < tetraminoItems.length; i++) {
@@ -274,7 +60,7 @@ function createTetramino() {
 }
 
 function getRandomTetramino() {
-    return Math.round(Math.random() * arrOfTetraminos.length - 1);
+    return Math.round(Math.random() * TetraminosShape.length - 1);
 }
 
 function animate() {
@@ -316,9 +102,50 @@ function animate() {
             tetraminoItems[i].addClass('set');
         }
 
+        for(let i = 1; i < 16; i++) {
+            let count = 0;
+            for(let k = 1; k < 11; k++) {
+                if($(`[pos-x = '${k}'][pos-y = '${i}']`).hasClass('set')) {
+                    count++;
+                    if(count == 10) {
+                        for(let j = 1; j < 11; j++) {
+                            $(`[pos-x = '${j}'][pos-y = '${i}']`).removeClass('set');
+                        }
+
+                        let set = $('.set');
+                        let newSet = [];
+                        
+                        for(let s = 0; s < set.length; s++) {
+                            let setCoordinates = [set.eq(s).attr('pos-x'), set.eq(s).attr('pos-y')];
+                            
+                            if(setCoordinates[1] > i) {
+                                set.eq(s).removeClass('set');
+                                newSet.push($(`[pos-x = '${setCoordinates[0]}'][pos-y = '${setCoordinates[1] - 1}']`));
+                            }
+                        }
+
+                        for(let n = 0; n < newSet.length; n++) {
+                            newSet[n].addClass('set');
+                        }
+
+                        i--;
+                    }
+                }
+            }
+        }
+        for(let g = 1; g < 11; g++) {
+            if($(`[pos-x = '${g}'][pos-y = '15']`).hasClass('set')) {
+                clearInterval(interval);
+                alert('The game is over');
+                break;
+            }
+        }
+
         createTetramino();
     }
 }
+
+let interval = setInterval(animate, animationSpeed); //Make it move.
 
 $(window).on('keydown', function(e) {
 
@@ -366,13 +193,13 @@ $(window).on('keydown', function(e) {
         isStop = true;
     
         let newCoordinates = [
-            $(`[pos-x = '${parseInt(coordinates1[0]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][0][0]}'][pos-y = '${parseInt(coordinates1[1]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][0][1]}']`),
+            $(`[pos-x = '${parseInt(coordinates1[0]) + TetraminosShape[getCurrentTetramino][rotation + 2][0][0]}'][pos-y = '${parseInt(coordinates1[1]) + TetraminosShape[getCurrentTetramino][rotation + 2][0][1]}']`),
 
-            $(`[pos-x = '${parseInt(coordinates2[0]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][1][0]}'][pos-y = '${parseInt(coordinates2[1]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][1][1]}']`),
+            $(`[pos-x = '${parseInt(coordinates2[0]) + TetraminosShape[getCurrentTetramino][rotation + 2][1][0]}'][pos-y = '${parseInt(coordinates2[1]) + TetraminosShape[getCurrentTetramino][rotation + 2][1][1]}']`),
 
-            $(`[pos-x = '${parseInt(coordinates3[0]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][2][0]}'][pos-y = '${parseInt(coordinates3[1]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][2][1]}']`),
+            $(`[pos-x = '${parseInt(coordinates3[0]) + TetraminosShape[getCurrentTetramino][rotation + 2][2][0]}'][pos-y = '${parseInt(coordinates3[1]) + TetraminosShape[getCurrentTetramino][rotation + 2][2][1]}']`),
 
-            $(`[pos-x = '${parseInt(coordinates4[0]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][3][0]}'][pos-y = '${parseInt(coordinates4[1]) + arrOfTetraminos[getCurrentTetramino][rotation + 2][3][1]}']`),
+            $(`[pos-x = '${parseInt(coordinates4[0]) + TetraminosShape[getCurrentTetramino][rotation + 2][3][0]}'][pos-y = '${parseInt(coordinates4[1]) + TetraminosShape[getCurrentTetramino][rotation + 2][3][1]}']`),
         ];
     
         for(let i = 0; i < newCoordinates.length; i++) {
@@ -403,12 +230,10 @@ $(window).on('keydown', function(e) {
     } else if(e.keyCode == 40) {
         animate();
     }
-
 });
 
 $(document).ready(function() {
     fillPlayfield(); //Fill the playfield with grid items.
     setCoordinatesForGridItems(); //Set pos-x and pos-y attribute for every grid item.
     createTetramino(); //Draw and set coordinates for tetramino.
-    setInterval(animate, animationSpeed); //Make it to move down.
 });
